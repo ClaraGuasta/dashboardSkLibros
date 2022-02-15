@@ -22,16 +22,16 @@ const cantidad = {
     color: '#484A49',
 }
 
-function IndividualCategory (props){
+function IndividualCategory ({total, titulo, icono}){
     return(
         <React.Fragment>
             <div style={individualCategory}>
                 <div style={display}>
-                    <i className={`fas ${props.icono} fa-2x fa-solid`}></i>
-                    <h3>{props.nombre}</h3>
+                    <i className={`fas ${icono} fa-2x fa-solid`}></i>
+                    <h3>{titulo}</h3>
                 </div>
                 <div>
-                    <h2 style={cantidad}>{props.cantidad}</h2>
+                    <h2 style={cantidad}>{total}</h2>
                 </div>
             </div>
         </React.Fragment>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import IndividualCategory from './IndividualCategory'
 
 const panelCategory = {
@@ -14,32 +14,38 @@ const panelCategory = {
     boxShadow: "rgb(104 104 104) 5px 5px 5px",
 }
 
-const Terror = {
-    nombre: 'Terror',
-    cantidad: 20,
-    icono:'fa-skull-crossbones',
-}
-const Fantasía = {
-    nombre: 'Fantasía',
-    cantidad: 10,
-    icono:'fa-ghost',
-}
-const Suspenso = {
-    nombre: 'Suspenso',
-    cantidad: 15,
-    icono:'fa-skull',
-}
-const categorys = [Terror, Fantasía, Suspenso]
 function Categorys(){
+    const [categoryFantasia, setcategoryFantasia] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3030/api/genres")
+      .then((respuesta) => respuesta.json())
+      .then((data) => {
+        setcategoryFantasia(data.data.generos.generos[0].productos.length);
+      });
+  }, []);
+  const [categoryTerror, setcategoryTerror] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3030/api/genres")
+      .then((respuesta) => respuesta.json())
+      .then((data) => {
+        setcategoryTerror(data.data.generos.generos[1].productos.length);
+      });
+  }, []);
+  const [categorySuspenso, setcategorySuspenso] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3030/api/genres")
+      .then((respuesta) => respuesta.json())
+      .then((data) => {
+        setcategorySuspenso(data.data.generos.generos[2].productos.length);
+      });
+  }, []);
     return(
         <React.Fragment>
             <div style={panelCategory}>
                 <h2 className='category-titulo'>Total de productos por género</h2>
-            {
-                categorys.map((categoria,index)=>{
-                    return <IndividualCategory  {...categoria}  key={index}/>
-                })
-            }
+           <IndividualCategory total={categoryFantasia} titulo="Fantasía" icono='fa-ghost' />
+           <IndividualCategory total={categoryTerror} titulo="Terror" icono='fa-skull-crossbones'/>
+           <IndividualCategory total={categorySuspenso} titulo="Suspenso" icono='fa-skull' />
             </div>
         </React.Fragment>
     )

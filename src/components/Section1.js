@@ -20,10 +20,10 @@ function Section1() {
   }, []);
   const [categoryList, setcategoryList] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3030/api/products")
+    fetch("http://localhost:3030/api/genres")
       .then((respuesta) => respuesta.json())
       .then((data) => {
-        console.log(data);
+        setcategoryList(data.data.count);
       });
   }, []);
 
@@ -31,9 +31,9 @@ function Section1() {
   return (
     <React.Fragment>
       <div className="section1-cards">
-        <Card title="Total de productos" total={productList} icon='fa-skull'/>
-        <Card title="Total de usuarios" total={userList} />
-        <Card title="Total de categorias" />
+        <Card title="Total de productos" total={productList} icon='fa-book'/>
+        <Card title="Total de usuarios" total={userList} icon="fa-user"/>
+        <Card title="Total de categorias" total={categoryList} icon='fa-layer-group'/>
       </div>
     </React.Fragment>
   );
